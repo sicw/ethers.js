@@ -45,6 +45,10 @@ export function getCreateAddress(tx: { from: string, nonce: BigNumberish }): str
 }
 
 /**
+ *  解释下:
+ *  Pair合约是在Factory合约中调用create2方法创建的, 所以Pair合约的地址是可以通过计算得到的.
+ *  需要的参数如下: from(在哪里创建的), salt(盐), initCode
+ *
  *  Returns the address that would result from a ``CREATE2`` operation
  *  with the given %%from%%, %%salt%% and %%initCodeHash%%.
  *
