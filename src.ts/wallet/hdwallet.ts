@@ -114,6 +114,7 @@ function derivePath<T extends HDNodeLike<T>>(node: T, path: string): T {
 }
 
 /**
+ *  分级继承账户模型
  *  An **HDNodeWallet** is a [[Signer]] backed by the private key derived
  *  from an HD Node using the [[link-bip-32]] stantard.
  *
@@ -402,7 +403,7 @@ export class HDNodeWallet extends BaseWallet {
  *  the children nodes of a [[link-bip-32]] HD wallet addresses.
  *
  *  The can be created by using an extended ``xpub`` key to
- *  [[HDNodeWallet_fromExtendedKey]] or by 
+ *  [[HDNodeWallet_fromExtendedKey]] or by
  *  [nuetering](HDNodeWallet-neuter) a [[HDNodeWallet]].
  */
 export class HDNodeVoidWallet extends VoidSigner {

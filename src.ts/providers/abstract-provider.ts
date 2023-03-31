@@ -409,11 +409,13 @@ export class AbstractProvider implements Provider {
         // Create a tag
         const tag = getTag(req.method, req);
 
+        // 从缓存中读取
         let perform = this.#performCache.get(tag);
         if (!perform) {
             perform = this._perform(req);
             this.#performCache.set(tag, perform);
 
+            // 250ms之后缓存没有变就删除
             setTimeout(() => {
                 if (this.#performCache.get(tag) === perform) {
                     this.#performCache.delete(tag);
@@ -503,6 +505,7 @@ export class AbstractProvider implements Provider {
 
     // Sub-classes should override this and handle PerformActionRequest requests, calling
     // the super for any unhandled actions.
+    // 子类应该重写该方法, 不同的网络执行具体的PerformActionRequest, 如果是不支持的methods就调用父类的
     async _perform<T = any>(req: PerformActionRequest): Promise<T> {
         assert(false, `unsupported method: ${ req.method }`, "UNSUPPORTED_OPERATION", {
             operation: req.method,
@@ -649,6 +652,7 @@ export class AbstractProvider implements Provider {
         return request;
     }
 
+    // 有不同实现, 可读取chainID判断
     async getNetwork(): Promise<Network> {
 
         // No explicit network was set and this is our first time
