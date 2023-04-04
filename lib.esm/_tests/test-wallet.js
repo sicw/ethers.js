@@ -5,6 +5,7 @@ describe("Test Private Key Wallet", function () {
     const tests = loadTests("accounts");
     tests.forEach(({ name, privateKey, address }) => {
         it(`creates wallet: ${name}`, function () {
+            // 推导路径 privateKey => publicKey <=> address
             const wallet = new Wallet(privateKey);
             assert.equal(wallet.privateKey, privateKey);
             assert.equal(wallet.address, address);
@@ -21,6 +22,7 @@ describe("Test Transaction Signing", function () {
             if (txData.chainId != null && parseInt(txData.chainId) != 0) {
                 txData.chainId = "0x00";
             }
+            // 用私钥签名 验证者用共钥验证(可以根据address获取publishKey)
             const signed = await wallet.signTransaction(txData);
             assert.equal(signed, test.signedLegacy, "signedLegacy");
         });

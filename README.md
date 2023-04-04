@@ -1,3 +1,10 @@
+-------
+我的记录:
+1. 执行lib.esm/_tests路径下的test_case 可以调试查看
+
+-------
+
+
 The Ethers Project
 ==================
 
